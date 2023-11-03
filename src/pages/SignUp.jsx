@@ -1,4 +1,4 @@
-import { Button, Card } from "@mui/material"
+import { Button, Card, CircularProgress, Fade } from "@mui/material"
 import { Field, Form, Formik } from "formik"
 import { useRef, useState } from "react"
 import { SignupSchema } from "../validation/SignupSchema"
@@ -7,16 +7,12 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye"
 import WarningIcon from "@mui/icons-material/Warning"
 
-const info = {
-  username: "react",
-  password: "123456",
-}
-
 const SignUp = () => {
   const [showInput, setShowInput] = useState(false)
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
   const inputRef = useRef()
   const requiredRef = useRef()
-  const submitError = useRef()
 
   const navigate = useNavigate()
 
@@ -30,6 +26,43 @@ const SignUp = () => {
     event.target.value.trim() !== ""
       ? requiredRef.current.classList.add("hidden")
       : requiredRef.current.classList.remove("hidden")
+  }
+
+  const delay = (ms, payload) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (
+          payload.username.toLowerCase() == "react" &&
+          payload.password == "123456"
+        ) {
+          resolve({
+            success: true,
+            token: "TICKET_2e1d3367eae8832755b7711179cd23f2e972413e",
+          })
+        } else {
+          reject({
+            message: "You`ve entered an unknown username or password",
+            success: false,
+          })
+        }
+      }, ms)
+    })
+  }
+
+  const submitHandler = async (values, { setSubmitting }) => {
+    setLoading(true)
+    try {
+      const data = await delay(3000, values)
+      setLoading(false)
+      if (data.success) {
+        navigate("/")
+        localStorage.setItem("token", data.token)
+      }
+    } catch (error) {
+      setLoading(false)
+      setError(JSON.stringify(error.message, null, 2))
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -47,38 +80,17 @@ const SignUp = () => {
           <Formik
             initialValues={{ username: "", password: "" }}
             validationSchema={SignupSchema}
-            onSubmit={(values, actions) => {
-              setTimeout(() => {
-                // alert(JSON.stringify(values, null, 2))
-
-                if (
-                  values.username.toLowerCase() ===
-                    info.username.toLowerCase() &&
-                  values.password.toLowerCase() === info.password.toLowerCase()
-                ) {
-                  submitError.current.classList.remove("visible")
-                  submitError.current.classList.add("invisible")
-
-                //   actions.setSubmitting(false)
-                  actions.resetForm()
-                  navigate("/")
-                } else {
-                  submitError.current.classList.remove("invisible")
-                  submitError.current.classList.add("visible")
-                }
-              }, 1000)
-            }}
+            onSubmit={submitHandler}
           >
             {({ errors, touched, isSubmitting }) => (
               <Form className="flex flex-col gap-[1.8rem]">
-                <div
-                  ref={submitError}
-                  className="text-[#b8082a] flex items-center justify-center gap-[1rem] invisible"
-                >
-                  <WarningIcon className="text-[1.7rem]" />
-                  <span className="text-[1.2rem]">
-                    You&apos;ve entered an unknown username or password
-                  </span>
+                <div className="text-[#b8082a] flex items-center justify-center gap-[1rem]">
+                  {error !== "" && (
+                    <>
+                      <WarningIcon className="text-[1.7rem]" />
+                      <span className="text-[1.2rem]">{error}</span>
+                    </>
+                  )}
                 </div>
                 <div className="my-[1.6rem]">
                   <Field
@@ -140,15 +152,32 @@ const SignUp = () => {
                     </div>
                   ) : null}
                 </div>
-
+                <br />
                 <Button
                   type="submit"
                   variant="contained"
-                //   disabled={isSubmitting}
+                  disabled={isSubmitting}
                   className="!bg-[#00754a] cursor-pointer !text-[1.4rem] !font-[500] h-[3.6rem] leading-[3.8rem] disabled:!bg-[#0000001f] disabled:!text-[#fff]"
                 >
-                  SIGN IN
+                  {loading ? (
+                    <>
+                    
+                      CHECKING
+                        <Fade
+                          in={loading}
+                          style={{
+                            transitionDelay: loading ? "800ms" : "0ms",
+                          }}
+                          unmountOnExit
+                        >
+                          <CircularProgress className="!w-[2rem] !h-[2rem] ml-[1rem]" />
+                        </Fade>
+                    </>
+                  ) : (
+                    "SIGN IN"
+                  )}
                 </Button>
+                <br />
               </Form>
             )}
           </Formik>

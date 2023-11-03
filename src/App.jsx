@@ -1,9 +1,12 @@
-import SignUp from "./pages/SignUp"
+import Routes from "./common/navigate"
+import Layout from "./components/Layout/Layout"
 
 function App() {
   return (
     <>
-      <SignUp />
+      <Layout>
+        <Routes />
+      </Layout>
     </>
   )
 }
