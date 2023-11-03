@@ -15,7 +15,10 @@ const Home = () => {
     <>
       <div className="w-full flex items-center px-[2.4rem] h-[6.4rem] bg-[url('/images/mastHead-bg-shapesPattern.svg')] bg-no-repeat bg-cover bg-center">
         <div className="flex items-center">
-          <MenuIcon onClick={() => handleDrawerOpen()} className="!text-[2.9rem] me-[0.5rem] cursor-pointer" />
+          <MenuIcon
+            onClick={handleDrawerOpen}
+            className="!text-[2.9rem] me-[0.5rem] cursor-pointer"
+          />
           <Link to="/">
             <img
               className="h-[2.8rem] ml-[0.6rem]"
@@ -31,7 +34,7 @@ const Home = () => {
       </div>
 
       <div className="flex bg-[#fafafa] w-full h-main">
-        <LeftSection />
+        <LeftSection open={open} />
         <RightSection />
       </div>
     </>

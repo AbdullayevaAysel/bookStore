@@ -184,7 +184,6 @@ const SignUp = () => {
         </Card>
       </div>
       <p className="text-[1.2rem] py-[1.6rem] opacity-[0.54] text-center">
-        {" "}
         &copy; 2017 - 2020 Alfresco Software, Inc. All rights reserved.{" "}
       </p>
     </div>
