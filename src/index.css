@@ -4,6 +4,9 @@
 
 :root {
     --bg-gray: #fafafa;
+    --theme-primary-color: #0055b8;
+    --theme-text-color: rgba(0, 0, 0, .54);
+
 }
 
 html {

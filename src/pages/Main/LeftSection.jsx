@@ -10,16 +10,15 @@ import { Drawer } from "../../utilities"
 import { Link } from "react-router-dom"
 
 const LeftSection = ({ open }) => {
-
   const lists = [
     {
       text: "Personal Files",
-      icon: <FolderIcon />,
+      icon: <FolderIcon className="!text-[2.4rem] text-[#0000008a]" />,
       title: "View your Personal Files",
     },
     {
       text: "File Libraries",
-      icon: <SourceIcon />,
+      icon: <SourceIcon className="!text-[2.4rem] text-[#0000008a]" />,
       title: "File Libraries",
       children: [
         {
@@ -34,22 +33,22 @@ const LeftSection = ({ open }) => {
     },
     {
       text: "Shared",
-      icon: <PeopleAltIcon />,
+      icon: <PeopleAltIcon className="!text-[2.4rem] text-[#0000008a]" />,
       title: "View files that have been shared",
     },
     {
       text: "Recent Files",
-      icon: <AccessTimeIcon />,
+      icon: <AccessTimeIcon className="!text-[2.4rem] text-[#0000008a]" />,
       title: "View files you recently edited",
     },
     {
       text: "Favorites",
-      icon: <StarIcon />,
+      icon: <StarIcon className="!text-[2.4rem] text-[#0000008a]" />,
       title: "View your favorite files and folders",
     },
     {
       text: "Trash",
-      icon: <DeleteIcon />,
+      icon: <DeleteIcon className="!text-[2.4rem] text-[#0000008a]" />,
       title: "View deleted files in the trash",
     },
   ]
@@ -58,11 +57,13 @@ const LeftSection = ({ open }) => {
     <>
       <Drawer variant="permanent" open={open}>
         <Divider />
-        <List>
-          
+        <List className="py-[0.6rem]">
           {lists?.map((list, i) => (
-            <li key={i}>
-              <Link>{list?.text}</Link>
+            <li key={i} className="px-[0.8rem] ">
+              <Link className="text-[1.4rem] px-[1.6rem] py-[1.2rem] flex items-center hover:bg-[#00000000] rounded-[0.4rem]">
+                <span>{list?.icon}</span>
+                <span className="mx-[0.8rem] text-[var(--theme-text-color)]">{list?.text}</span>
+              </Link>
             </li>
           ))}
         </List>
