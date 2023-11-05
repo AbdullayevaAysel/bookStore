@@ -9,6 +9,14 @@
 
 }
 
+.text-primary:hover span {
+    color: var(--theme-primary-color);
+}
+
+.show-accordion span, .show-accordion .menu-icon {
+    color: var(--theme-primary-color);
+}
+
 html {
     font-size: 10px;
 }
@@ -17,7 +25,8 @@ html {
     height: calc(100vh - 64px);
 }
 
-.left .css-2dum1v-MuiDrawer-docked .MuiDrawer-paper, .css-1s04tii-MuiDrawer-docked .MuiDrawer-paper {
+.left .css-2dum1v-MuiDrawer-docked .MuiDrawer-paper, .css-1s04tii-MuiDrawer-docked .MuiDrawer-paper ,
+.css-2dum1v-MuiDrawer-docked .MuiDrawer-paper{
     margin-top: 6.4rem !important;
     background: var(--bg-gray) !important;
 }
