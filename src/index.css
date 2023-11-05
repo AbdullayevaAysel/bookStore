@@ -32,3 +32,7 @@ html {
 .css-ptkaw2-MuiDataGrid-root .MuiDataGrid-cell--textCenter{
     visibility: hidden;
 }
+.nth-child:nth-child(3),
+.nth-child:nth-child(6){
+    border-bottom: 1px solid #ccc;
+}
