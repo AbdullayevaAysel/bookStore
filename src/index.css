@@ -8,7 +8,9 @@
     --theme-text-color: rgba(0, 0, 0, .54);
 
 }
-
+body{
+    overflow-x: hidden;
+}
 html {
     font-size: 10px;
 }
@@ -20,4 +22,13 @@ html {
 .left .css-2dum1v-MuiDrawer-docked .MuiDrawer-paper, .css-1s04tii-MuiDrawer-docked .MuiDrawer-paper {
     margin-top: 6.4rem !important;
     background: var(--bg-gray) !important;
+}
+.css-t89xny-MuiDataGrid-columnHeaderTitle{
+    @apply text-[12px]
+}
+.css-ptkaw2-MuiDataGrid-root .MuiDataGrid-cellContent{
+    @apply text-[14px]
+}
+.css-ptkaw2-MuiDataGrid-root .MuiDataGrid-cell--textCenter{
+    visibility: hidden;
 }

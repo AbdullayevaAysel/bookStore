@@ -9,7 +9,7 @@ function Routes() {
       element: <Home />,
     },
     {
-      path: "login",
+      path: "/login",
       element: <SignUp />,  
     },
   ])

@@ -1,5 +1,5 @@
-import Routes from "./common/navigate"
-import Layout from "./components/Layout/Layout"
+import Routes from "./common/navigate";
+import Layout from "./components/Layout/Layout";
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
         <Routes />
       </Layout>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
