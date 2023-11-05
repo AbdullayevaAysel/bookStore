@@ -91,12 +91,11 @@ const Datagrid = () => {
           columns={columns}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 7 },
+              paginationModel: { page: 0},
             },
           }}
           onClick={handleCloseContextMenu}
           pageSizeOptions={[5, 10]}
-          checkboxSelection
           onRowContextMenu={(params, event) => {
             event.preventDefault();
             setCustomContextMenu({
