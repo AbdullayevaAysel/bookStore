@@ -95,7 +95,7 @@ const LeftSection = ({ open }) => {
 
   return (
     <>
-      <Drawer variant="permanent" open={open}>
+      <Drawer className="!overflow-x-auto" variant="permanent" open={open}>
         <Divider />
         <div className="px-[1.6rem] py-[1.2rem]">
           {open ? (
@@ -111,7 +111,10 @@ const LeftSection = ({ open }) => {
               <ArrowDropDownIcon className="!text-[2.4rem]" />
             </Button>
           ) : (
-            <AddToPhotosIcon onClick={handleClick} className="!text-[2.4rem] text-[#00754a] mr-[1.6rem]" />
+            <AddToPhotosIcon
+              onClick={handleClick}
+              className="!text-[2.4rem] text-[#00754a]"
+            />
           )}
 
           <Menu
@@ -225,7 +228,7 @@ const LeftSection = ({ open }) => {
                 <div className="mb-[0.6rem]">
                   <Accordion
                     onChange={() => handleChange()}
-                    className="!shadow-none !w-full text-[1.4rem] px-[1.6rem] py-[1.2rem] !bg-[var(--bg-gray)]"
+                    className="!shadow-none !w-full text-[1.4rem] px-[1.6rem] py-[1.2rem] !bg-[var(--bg-gray)] !relative"
                   >
                     <AccordionSummary
                       className="!p-0 text-primary"
@@ -244,18 +247,27 @@ const LeftSection = ({ open }) => {
                         </span>
                       </div>
                     </AccordionSummary>
-                    {list?.children?.map((children, i) => (
-                      <NavLink
-                        key={i}
-                        className="text-[1.4rem] pl-[2.4rem] pr-[1.6rem] py-[1.2rem] flex items-center hover:bg-[#F0F0F0] rounded-[0.4rem]"
-                      >
-                        <AccordionDetails className="!p-0" title={list?.title}>
-                          <span className="mx-[0.8rem] text-[var(--theme-text-color)]">
-                            {children?.text}
-                          </span>
-                        </AccordionDetails>
-                      </NavLink>
-                    ))}
+                    <div
+                      className={`${
+                        !open && "absolute !bg-[#fff] !z-[15000000000]"
+                      }`}
+                    >
+                      {list?.children?.map((children, i) => (
+                        <NavLink
+                          key={i}
+                          className={`text-[1.4rem] pl-[2.4rem] pr-[1.6rem] py-[1.2rem] flex items-center hover:bg-[#F0F0F0] rounded-[0.4rem]`}
+                        >
+                          {/* <AccordionDetails className="!p-0" title={list?.title}>
+                        
+                        </AccordionDetails> */}
+                          <div>
+                            <span className="mx-[0.8rem] text-[var(--theme-text-color)]">
+                              {children?.text}
+                            </span>
+                          </div>
+                        </NavLink>
+                      ))}
+                    </div>
                   </Accordion>
                   <Divider className="" />
                 </div>
