@@ -9,6 +9,10 @@
 
 }
 
+body{
+    overflow-x: hidden;
+}
+
 .text-primary:hover span {
     color: var(--theme-primary-color);
 }
@@ -29,4 +33,18 @@ html {
 .css-2dum1v-MuiDrawer-docked .MuiDrawer-paper{
     margin-top: 6.4rem !important;
     background: var(--bg-gray) !important;
+}
+
+.css-t89xny-MuiDataGrid-columnHeaderTitle{
+    @apply text-[12px]
+}
+.css-ptkaw2-MuiDataGrid-root .MuiDataGrid-cellContent{
+    @apply text-[14px]
+}
+.css-ptkaw2-MuiDataGrid-root .MuiDataGrid-cell--textCenter{
+    visibility: hidden;
+}
+.nth-child:nth-child(3),
+.nth-child:nth-child(6){
+    border-bottom: 1px solid #ccc;
 }

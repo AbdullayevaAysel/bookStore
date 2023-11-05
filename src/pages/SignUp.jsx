@@ -7,7 +7,8 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye"
 import WarningIcon from "@mui/icons-material/Warning"
 
-const SignUp = () => {
+
+const SignUp = ({ onLogin }) => {
   const [showInput, setShowInput] = useState(false)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -37,6 +38,7 @@ const SignUp = () => {
         ) {
           resolve({
             success: true,
+          
             token: "TICKET_2e1d3367eae8832755b7711179cd23f2e972413e",
           })
         } else {
@@ -55,8 +57,9 @@ const SignUp = () => {
       const data = await delay(3000, values)
       setLoading(false)
       if (data.success) {
-        navigate("/")
+     
         localStorage.setItem("token", data.token)
+        navigate("/home")
       }
     } catch (error) {
       setLoading(false)
