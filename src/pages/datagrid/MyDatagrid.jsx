@@ -3,6 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import IconItem from "../../components/İconİtem";
 import { columns, data, rows } from "./datagrid";
 
+
 const MyDatagrid = () => {
   const [customContextMenu, setCustomContextMenu] = useState(false);
   useEffect(() => {
@@ -30,7 +31,7 @@ const MyDatagrid = () => {
     <>
       <div className="h-main" id="my-component" style={{ width: "100%" }}>
         <DataGrid
-          className="!w-full"
+          className="!w-full "
           rows={rows}
           columns={columns}
           initialState={{
