@@ -48,3 +48,6 @@ html {
 .nth-child:nth-child(6){
     border-bottom: 1px solid #ccc;
 }
+.css-levciy-MuiTablePagination-displayedRows{
+  font-size: 16px !important;
+}
