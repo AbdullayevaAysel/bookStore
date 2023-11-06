@@ -7,8 +7,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye"
 import WarningIcon from "@mui/icons-material/Warning"
 
-
-const SignUp = ({ onLogin }) => {
+const SignUp = () => {
   const [showInput, setShowInput] = useState(false)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -29,41 +28,43 @@ const SignUp = ({ onLogin }) => {
       : requiredRef.current.classList.remove("hidden")
   }
 
-  const delay = (ms, payload) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (
-          payload.username.toLowerCase() == "react" &&
-          payload.password == "123456"
-        ) {
-          resolve({
-            success: true,
-          
-            token: "TICKET_2e1d3367eae8832755b7711179cd23f2e972413e",
-          })
-        } else {
-          reject({
-            message: "You`ve entered an unknown username or password",
-            success: false,
-          })
-        }
-      }, ms)
-    })
-  }
-
-  const submitHandler = async (values, { setSubmitting }) => {
+  const submitRealRequest = async (values, { setSubmitting }) => {
+    const url =
+      "https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/authentication/versions/1/tickets"
     setLoading(true)
+
     try {
-      const data = await delay(3000, values)
-      setLoading(false)
-      if (data.success) {
-     
-        localStorage.setItem("token", data.token)
-        navigate("/home")
+      if (
+        values.userId.toLowerCase() == "react" &&
+        values.password == "123456"
+      ) {
+        const headers = new Headers()
+        headers.set(
+          "Authorization",
+          "Basic " + btoa(values.userId + ":" + values.password)
+        )
+
+        const response = await fetch(url, {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(values),
+        })
+
+        console.log(JSON.stringify(values))
+        const data = await response.json()
+
+        if (response.ok) {
+          console.log("Request was successful:", data)
+          localStorage.setItem("token", data.entry.id)
+          navigate("/")
+        } else {
+          console.error("Request failed:", data)
+        }
       }
-    } catch (error) {
       setLoading(false)
-      setError(JSON.stringify(error.message, null, 2))
+    } catch {
+      setLoading(false)
+      setError("You`ve entered an unknown username or password")
       setSubmitting(false)
     }
   }
@@ -81,9 +82,9 @@ const SignUp = ({ onLogin }) => {
           </div>
 
           <Formik
-            initialValues={{ username: "", password: "" }}
+            initialValues={{ userId: "", password: "" }}
             validationSchema={SignupSchema}
-            onSubmit={submitHandler}
+            onSubmit={submitRealRequest}
           >
             {({ errors, touched, isSubmitting }) => (
               <Form className="flex flex-col gap-[1.8rem]">
@@ -97,18 +98,18 @@ const SignUp = ({ onLogin }) => {
                 </div>
                 <div className="my-[1.6rem]">
                   <Field
-                    name="username"
+                    name="userId"
                     placeholder="Username"
                     className={`w-full text-[1.6rem] outline-none leading-[2rem] border-b focus:border-b-[0.3rem] py-[0.6rem]  transition ease-linear delay-100 ${
-                      errors.username && touched.username
+                      errors.userId && touched.userId
                         ? "border-[#b8082a] focus:caret-[#b8082a]"
                         : "focus:border-[#0055b8] focus:caret-[#0055b8] border-[#000000]"
                     } `}
                   />
 
                   <div className="pt-[0.6rem] text-[1.2rem]">
-                    {errors.username && touched.username ? (
-                      <span className=" text-[#b8082a]">{errors.username}</span>
+                    {errors.userId && touched.userId ? (
+                      <span className=" text-[#b8082a]">{errors.userId}</span>
                     ) : null}
                   </div>
                 </div>
@@ -164,17 +165,16 @@ const SignUp = ({ onLogin }) => {
                 >
                   {loading ? (
                     <>
-                    
                       CHECKING
-                        <Fade
-                          in={loading}
-                          style={{
-                            transitionDelay: loading ? "800ms" : "0ms",
-                          }}
-                          unmountOnExit
-                        >
-                          <CircularProgress className="!w-[2rem] !h-[2rem] ml-[1rem]" />
-                        </Fade>
+                      <Fade
+                        in={loading}
+                        style={{
+                          transitionDelay: loading ? "800ms" : "0ms",
+                        }}
+                        unmountOnExit
+                      >
+                        <CircularProgress className="!w-[2rem] !h-[2rem] ml-[1rem]" />
+                      </Fade>
                     </>
                   ) : (
                     "SIGN IN"

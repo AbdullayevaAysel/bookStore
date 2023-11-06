@@ -11,10 +11,9 @@ import UploadIcon from "@mui/icons-material/Upload"
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder"
 import DescriptionIcon from "@mui/icons-material/Description"
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos"
-import { Link, NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import {
   Accordion,
-  AccordionDetails,
   AccordionSummary,
   List,
   Divider,
@@ -23,8 +22,77 @@ import {
   MenuItem,
 } from "@mui/material"
 import { useState } from "react"
+import axios from "axios"
+
+// http://localhost:3000/
 
 const LeftSection = ({ open }) => {
+  const createFolderWithFetch = async (folderName, parentFolderId) => {
+    const apiUrl = `https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/alfresco/versions/1/nodes/${parentFolderId}/children`
+    const requestBody = {
+      name: folderName,
+      nodeType: "cm:folder",
+    }
+
+    const requestOptions = {
+      method: "POST",
+      mode: "cors", // CORS modu
+      credentials: "include", // Kimlik bilgileri dahil edilsin
+      headers: {
+        "Content-Type": "application/json", // İstek başlığı
+        "Access-Control-Allow-Origin": "" * "",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      body: JSON.stringify(requestBody), // İstek gövdesi
+    }
+
+    try {
+      const response = await axios.post(apiUrl, requestOptions, {
+        auth: {
+          username: "react",
+          password: "123456",
+        },
+      })
+
+      if (response.status === 201) {
+        alert(`Successfully created folder ${response.data.entry.name}`)
+      } else {
+        console.log("Failed to create a new folder")
+      }
+      console.log("here")
+    } catch {
+      console.error("Error creating the folder")
+    }
+  }
+
+  // const createFolder = async (FolderName, id) => {
+  //   const url = `http://localhost:3000/alfresco/api/-default-/public/alfresco/versions/1/nodes/${id}/children`
+
+  //   const requestBody = {
+  //     name: FolderName,
+  //     nodeType: "cm:folder",
+  //   }
+
+  //   try {
+  //     const response = await axios.post(url, config, requestBody, {
+  //       auth: {
+  //         username: "react",
+  //         password: "123456",
+  //       },
+  //     })
+
+  //     if (response.status === 201) {
+  //       alert(`Successfully created folder ${response.data.entry.name}`)
+  //     } else {
+  //       console.log("Failed to create a new folder")
+  //     }
+  //   } catch {
+  //     console.error("Error creating the folder")
+  //   }
+  // }
+
   const [isAccordionOpen, setIsAccordionOpen] = useState(false)
 
   const lists = [
@@ -185,7 +253,7 @@ const LeftSection = ({ open }) => {
             <NavLink>
               <MenuItem
                 className="!text-[1.4rem]  h-[4.8rem] flex items-center  rounded-[0.4rem]"
-                onClick={handleClose}
+                onClick={() => createFolderWithFetch("test123", 1)}
               >
                 <CreateNewFolderIcon className="!text-[2.4rem] text-[#0000008a] mr-[1.6rem]" />
                 Create Folder

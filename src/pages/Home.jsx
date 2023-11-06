@@ -44,7 +44,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="w-full flex justify-between items-center px-[2.4rem] h-[6.4rem] bg-[url('/images/mastHead-bg-shapesPattern.svg')] bg-no-repeat bg-cover bg-center">
+      <div className="app-header w-full !z-20 flex justify-between items-center px-[2.4rem] h-[6.4rem] bg-[url('/images/mastHead-bg-shapesPattern.svg')] bg-no-repeat bg-cover bg-center">
         <div className="flex items-center">
           <MenuIcon
             onClick={handleDrawerOpen}

@@ -60,3 +60,7 @@ html {
 .account-menu .css-6hp17o-MuiList-root-MuiMenu-list {
     padding: 0 !important;
 }
+
+.app-header {
+    box-shadow: 0 3px 5px -1px #00000005, 0 6px 10px #00000004, 0 1px 18px #00000003;
+}
