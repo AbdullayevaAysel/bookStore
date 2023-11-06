@@ -29,7 +29,9 @@ const MyDatagrid = () => {
 
   return (
     <>
-      <div className="h-main" id="my-component" style={{ width: "100%" }}>
+   
+      <div className="h-main2" id="my-component" style={{ width: "100%" }}>
+        <h3 className="px-5 py-8 text-[14px] font-semibold">Personal Files</h3>
         <DataGrid
           className="!w-full "
           rows={rows}
