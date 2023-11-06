@@ -56,64 +56,7 @@ const LeftSection = ({ open }) => {
     } else {
       console.error("Request failed:", data)
     }
-
-  //   const headers = new Headers()
-  // headers.set(
-  //   "Authorization",
-  //   "Basic " + btoa("react" + ":" + "123456")
-  // )
-
-  //   const requestOptions = {
-  //     method: "POST",
-  //     headers: headers,
-  //     body: JSON.stringify(requestBody), 
-  //   }
-
-  //   const i = authHeader("react", "123456");
-
-  //   console.log(headers);
-
-  //   try {
-  //     const response = await axios.post(apiUrl, requestOptions)
-
-  //     if (response.status === 201) {
-  //       alert(`Successfully created folder ${response.data}`)
-  //     } else {
-  //       console.log("Failed to create a new folder")
-  //     }
-  //     console.log("here")
-  //   } catch {
-  //     console.error("Error creating the folder")
-  //   }
   }
-
-  
-
-  // const createFolder = async (FolderName, id) => {
-  //   const url = `http://localhost:3000/alfresco/api/-default-/public/alfresco/versions/1/nodes/${id}/children`
-
-  //   const requestBody = {
-  //     name: FolderName,
-  //     nodeType: "cm:folder",
-  //   }
-
-  //   try {
-  //     const response = await axios.post(url, config, requestBody, {
-  //       auth: {
-  //         username: "react",
-  //         password: "123456",
-  //       },
-  //     })
-
-  //     if (response.status === 201) {
-  //       alert(`Successfully created folder ${response.data.entry.name}`)
-  //     } else {
-  //       console.log("Failed to create a new folder")
-  //     }
-  //   } catch {
-  //     console.error("Error creating the folder")
-  //   }
-  // }
 
   const [isAccordionOpen, setIsAccordionOpen] = useState(false)
 
@@ -275,7 +218,7 @@ const LeftSection = ({ open }) => {
             <NavLink>
               <MenuItem
                 className="!text-[1.4rem]  h-[4.8rem] flex items-center  rounded-[0.4rem]"
-                onClick={() => createFolderWithFetch("test123", "382b3102-ffba-422e-8711-d7f330fb5468")}
+                onClick={() => createFolderWithFetch("poch", "382b3102-ffba-422e-8711-d7f330fb5468")}
               >
                 <CreateNewFolderIcon className="!text-[2.4rem] text-[#0000008a] mr-[1.6rem]" />
                 Create Folder
