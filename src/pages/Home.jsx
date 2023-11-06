@@ -3,6 +3,9 @@ import MenuIcon from "@mui/icons-material/Menu"
 import LeftSection from "./Main/LeftSection"
 import RightSection from "./Main/RightSection"
 import { useState } from "react"
+import { Divider, FormControl, InputAdornment, TextField } from "@mui/material"
+import SearchIcon from "@mui/icons-material/Search"
+import ClearIcon from "@mui/icons-material/Clear"
 
 const Home = () => {
   const [open, setOpen] = useState(true)
@@ -11,9 +14,19 @@ const Home = () => {
     setOpen(!open)
   }
 
+  // const [showClearIcon, setShowClearIcon] = useState("none")
+
+  const handleChange = (event) => {
+    // setShowClearIcon(event.target.value === "" ? "none" : "flex")
+  }
+
+  const handleClick = () => {
+    console.log("clicked the clear icon...")
+  }
+
   return (
     <>
-      <div className="w-full flex items-center px-[2.4rem] h-[6.4rem] bg-[url('/images/mastHead-bg-shapesPattern.svg')] bg-no-repeat bg-cover bg-center">
+      <div className="w-full flex justify-between items-center px-[2.4rem] h-[6.4rem] bg-[url('/images/mastHead-bg-shapesPattern.svg')] bg-no-repeat bg-cover bg-center">
         <div className="flex items-center">
           <MenuIcon
             onClick={handleDrawerOpen}
@@ -30,7 +43,31 @@ const Home = () => {
             Alfresco Digital Workspace
           </div>
         </div>
-        <div className="flex items-center"></div>
+        <div className="flex items-center">
+          <FormControl>
+            <TextField
+            className="w-[594px] bg-white !text-[1.6rem]"
+              size="normal"
+              placeholder="Search"
+              variant="outlined"
+              onChange={handleChange}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon className="!text-[2.4rem]" />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end" onClick={handleClick}>
+                    <ClearIcon className="!text-[1.8rem]" />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </FormControl>
+          <Divider className="!mx-[1rem] !border-[#000]" orientation="vertical" variant="middle" flexItem />
+
+        </div>
       </div>
 
       <div className="flex bg-[#fafafa] w-full h-main">
