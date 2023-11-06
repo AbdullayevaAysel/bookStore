@@ -3,12 +3,30 @@ import MenuIcon from "@mui/icons-material/Menu"
 import LeftSection from "./Main/LeftSection"
 import RightSection from "./Main/RightSection"
 import { useState } from "react"
-import { Divider, FormControl, InputAdornment, TextField } from "@mui/material"
+import {
+  Button,
+  Divider,
+  FormControl,
+  InputAdornment,
+  Menu,
+  MenuItem,
+  TextField,
+} from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
 import ClearIcon from "@mui/icons-material/Clear"
+import NotificationsIcon from "@mui/icons-material/Notifications"
+import AccountMenu from "../components/AccountMenu"
 
 const Home = () => {
   const [open, setOpen] = useState(true)
+  const [anchorEl, setAnchorEl] = useState(null)
+  const show = Boolean(anchorEl)
+  const handleShow = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
 
   const handleDrawerOpen = () => {
     setOpen(!open)
@@ -46,7 +64,7 @@ const Home = () => {
         <div className="flex items-center">
           <FormControl>
             <TextField
-            className="w-[594px] bg-white !text-[1.6rem]"
+              className="w-[594px] bg-white !text-[1.6rem]"
               size="normal"
               placeholder="Search"
               variant="outlined"
@@ -65,8 +83,43 @@ const Home = () => {
               }}
             />
           </FormControl>
-          <Divider className="!mx-[1rem] !border-[#000]" orientation="vertical" variant="middle" flexItem />
+          <Divider
+            className="!mx-[1rem] !border-[#000]"
+            orientation="vertical"
+            variant="middle"
+            flexItem
+          />
 
+          <Button
+            className="!rounded-full hover:!bg-[#F0F0F0] !w-[4rem] !h-[4rem] !p-0 !min-w-[4rem]"
+            id="basic-button"
+            aria-controls={show ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={show ? "true" : undefined}
+            onClick={handleShow}
+          >
+            <NotificationsIcon className="!text-[2.4rem] text-[#000]" />
+          </Button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={show}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem className="!text-[1.4rem]" onClick={handleClose}>Notifications</MenuItem>
+            <Divider />
+            <MenuItem className="!text-[1.4rem]" onClick={handleClose}>
+              You have no notifications at this time.
+            </MenuItem>
+          </Menu>
+
+          <p className="pl-[0.5rem] pr-[0.8rem] text-[2rem] font-[500]">
+            React Developer
+          </p>
+          <AccountMenu />
         </div>
       </div>
 

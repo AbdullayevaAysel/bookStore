@@ -269,7 +269,7 @@ const LeftSection = ({ open }) => {
                       ))}
                     </div>
                   </Accordion>
-                  <Divider className="" />
+                  <Divider />
                 </div>
               ) : (
                 <NavLink className="text-[1.4rem]  px-[1.6rem] py-[1.2rem] flex items-center hover:bg-[#F0F0F0] text-primary rounded-[0.4rem]">

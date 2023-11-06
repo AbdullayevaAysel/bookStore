@@ -6,7 +6,7 @@
     --bg-gray: #fafafa;
     --theme-primary-color: #0055b8;
     --theme-text-color: rgba(0, 0, 0, .54);
-
+    --adf-user-info-color: #4d88cd;
 }
 
 body{
@@ -50,4 +50,11 @@ html {
 }
 .css-levciy-MuiTablePagination-displayedRows{
   font-size: 16px !important;
+}
+
+.account-bg {
+    background: url("./images/ecm-background.png");
+}
+.account-menu .css-6hp17o-MuiList-root-MuiMenu-list {
+    padding: 0 !important;
 }
