@@ -28,7 +28,9 @@ html {
 .h-main {
     height: calc(100vh - 64px);
 }
-
+.h-main2 {
+    height: calc(100vh - 130px);
+}
 .left .css-2dum1v-MuiDrawer-docked .MuiDrawer-paper, .css-1s04tii-MuiDrawer-docked .MuiDrawer-paper ,
 .css-2dum1v-MuiDrawer-docked .MuiDrawer-paper{
     margin-top: 6.4rem !important;
