@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import IconItem from "../../components/İconİtem";
-import { columns, data, rows } from "./datagrid";
+import { columns, data, rows } from "./TableData";
 
 
 const MyDatagrid = () => {
