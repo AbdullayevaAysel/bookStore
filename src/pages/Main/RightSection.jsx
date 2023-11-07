@@ -1,5 +1,4 @@
-import { Box, Typography } from "@mui/material";
-import { DrawerHeader } from "../../utilities";
+import { Box } from "@mui/material";
 import MyDatagrid from "../datagrid/MyDatagrid";
 
 const RightSection = () => {

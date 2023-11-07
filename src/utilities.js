@@ -48,3 +48,8 @@ export const DrawerHeader = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
 }))
+
+
+export const saveDataToLocal = (name, data) => {
+  localStorage.setItem(name, JSON.stringify(data));
+};

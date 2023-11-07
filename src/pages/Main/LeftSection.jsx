@@ -22,41 +22,19 @@ import {
   MenuItem,
 } from "@mui/material"
 import { useState } from "react"
+import CustomModal from "../../components/CustomModal"
+import { useSelector } from "react-redux"
 
 const LeftSection = ({ open }) => {
 
-  const createFolderWithFetch = async (folderName, parentFolderId) => {
-    const apiUrl = `https://1curd3ms.trials.alfresco.com/alfresco/api/-default-/public/alfresco/versions/1/nodes/${parentFolderId}/children`
-    const requestBody = {
-      nodeType: "cm:folder",
-      name: folderName,
-      properties: {
-        "cm:title": folderName,
-        "cm:description": folderName
-      }
-    }
+  const folderData = useSelector(state => state.folder);
+console.log(folderData);
 
-  const headers = new Headers()
-  headers.set(
-    "Authorization",
-    "Basic " + btoa("react" + ":" + "123456")
-  )
+  const [openModal, setOpenModal] = useState(false);
 
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers:  headers,
-      body: JSON.stringify(requestBody),
-    })
+  const handleOpen = () => setOpenModal(true);
 
-    console.log(JSON.stringify(requestBody))
-    const data = await response.json()
-
-    if (response.ok) {
-      console.log("Request was successful:", data)
-    } else {
-      console.error("Request failed:", data)
-    }
-  }
+  
 
   const [isAccordionOpen, setIsAccordionOpen] = useState(false)
 
@@ -128,6 +106,7 @@ const LeftSection = ({ open }) => {
 
   return (
     <>
+      <CustomModal setOpenModal={setOpenModal}  openModal={openModal} title="Create new folder"/>
       <Drawer className="!overflow-x-auto" variant="permanent" open={open}>
         <Divider />
         <div className="px-[1.6rem] py-[1.2rem]">
@@ -218,7 +197,8 @@ const LeftSection = ({ open }) => {
             <NavLink>
               <MenuItem
                 className="!text-[1.4rem]  h-[4.8rem] flex items-center  rounded-[0.4rem]"
-                onClick={() => createFolderWithFetch("poch", "382b3102-ffba-422e-8711-d7f330fb5468")}
+                // onClick={() => createFolderWithFetch("poch", "382b3102-ffba-422e-8711-d7f330fb5468")}
+                onClick={handleOpen}
               >
                 <CreateNewFolderIcon className="!text-[2.4rem] text-[#0000008a] mr-[1.6rem]" />
                 Create Folder

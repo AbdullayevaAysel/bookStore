@@ -1,14 +1,11 @@
-import Routes from "./common/navigate";
-import Layout from "./components/Layout/Layout";
+import Routes from "./common/navigate"
 
 function App() {
   return (
     <>
-      <Layout>
-        <Routes />
-      </Layout>
+      <Routes />
     </>
-  );
+  )
 }
 
-export default App;
+export default App

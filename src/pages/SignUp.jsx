@@ -56,7 +56,7 @@ const SignUp = () => {
         if (response.ok) {
           console.log("Request was successful:", data)
           localStorage.setItem("token", data.entry.id)
-          navigate("/")
+          navigate("/personal-files")
         } else {
           console.error("Request failed:", data)
         }
