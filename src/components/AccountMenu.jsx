@@ -58,6 +58,7 @@ const AccountMenu = () => {
             <p>React Developer</p>
             <p>react_developer@ingress.az</p>
             <Link className=" underline">My Profile</Link>
+            
           </div>
           <div>
             <p>Job Title</p>

@@ -1,17 +1,17 @@
-import FolderIcon from "@mui/icons-material/Folder"
-import SourceIcon from "@mui/icons-material/Source"
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt"
-import AccessTimeIcon from "@mui/icons-material/AccessTime"
-import StarIcon from "@mui/icons-material/Star"
-import DeleteIcon from "@mui/icons-material/Delete"
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
-import { Drawer } from "../../utilities"
-import UploadIcon from "@mui/icons-material/Upload"
-import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder"
-import DescriptionIcon from "@mui/icons-material/Description"
-import AddToPhotosIcon from "@mui/icons-material/AddToPhotos"
-import { NavLink } from "react-router-dom"
+import FolderIcon from "@mui/icons-material/Folder";
+import SourceIcon from "@mui/icons-material/Source";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import StarIcon from "@mui/icons-material/Star";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { Drawer } from "../../utilities";
+import UploadIcon from "@mui/icons-material/Upload";
+import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
+import DescriptionIcon from "@mui/icons-material/Description";
+import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
+import { NavLink } from "react-router-dom";
 import {
   Accordion,
   AccordionSummary,
@@ -20,23 +20,35 @@ import {
   Button,
   Menu,
   MenuItem,
-} from "@mui/material"
-import { useState } from "react"
-import CustomModal from "../../components/CustomModal"
-import { useSelector } from "react-redux"
+} from "@mui/material";
+import { useState } from "react";
+import CustomModal from "../../components/CustomModal";
+import { useDispatch, useSelector } from "react-redux";
+import { createFile } from "../../common/store/features/folderSlice";
 
 const LeftSection = ({ open }) => {
-
-  const folderData = useSelector(state => state.folder);
-console.log(folderData);
-
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpen = () => setOpenModal(true);
 
-  
+  const [file, setFile] = useState(null);
 
-  const [isAccordionOpen, setIsAccordionOpen] = useState(false)
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+  console.log(file)
+const dispatch =useDispatch()
+ 
+  const uploadFile = () => {
+    
+    dispatch(
+      createFile({
+        name: file?.name,
+      })
+    );
+  };
+
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
   const lists = [
     {
@@ -89,24 +101,28 @@ console.log(folderData);
       ),
       title: "View deleted files in the trash",
     },
-  ]
+  ];
 
   const handleChange = () => {
-    setIsAccordionOpen(!isAccordionOpen)
-  }
+    setIsAccordionOpen(!isAccordionOpen);
+  };
 
-  const [anchorEl, setAnchorEl] = useState(null)
-  const show = Boolean(anchorEl)
+  const [anchorEl, setAnchorEl] = useState(null);
+  const show = Boolean(anchorEl);
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
+    setAnchorEl(event.currentTarget);
+  };
   const handleClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
   return (
     <>
-      <CustomModal setOpenModal={setOpenModal}  openModal={openModal} title="Create new folder"/>
+      <CustomModal
+        setOpenModal={setOpenModal}
+        openModal={openModal}
+        title="Create new folder"
+      />
       <Drawer className="!overflow-x-auto" variant="permanent" open={open}>
         <Divider />
         <div className="px-[1.6rem] py-[1.2rem]">
@@ -134,21 +150,14 @@ console.log(folderData);
             id="basic-menu"
             anchorEl={anchorEl}
             open={show}
-            onClose={handleClose}
             MenuListProps={{
               "aria-labelledby": "basic-button",
             }}
             PaperProps={{ sx: { width: "287.2px" } }}
           >
-            <NavLink>
-              <MenuItem
-                className="!text-[1.4rem]  h-[4.8rem] flex items-center  rounded-[0.4rem]"
-                onClick={handleClose}
-              >
-                <UploadIcon className="!text-[2.4rem] text-[#0000008a] mr-[1.6rem]" />
-                Upload File
-              </MenuItem>
-            </NavLink>
+            <input type="file" onChange={handleFileChange} />
+            <button onClick={uploadFile} className="text-2xl ">Upload File 3</button>
+
             <NavLink>
               <MenuItem
                 className="!text-[1.4rem]  h-[4.8rem] flex items-center  rounded-[0.4rem]"
@@ -302,7 +311,7 @@ console.log(folderData);
         </List>
       </Drawer>
     </>
-  )
-}
+  );
+};
 
-export default LeftSection
+export default LeftSection;

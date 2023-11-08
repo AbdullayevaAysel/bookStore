@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import IconItem from "../../components/İconİtem";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
@@ -12,32 +12,13 @@ import GroupIcon from "@mui/icons-material/Group";
 import KeyIcon from "@mui/icons-material/Key";
 import GavelIcon from "@mui/icons-material/Gavel";
 import FolderIcon from "@mui/icons-material/Folder";
-import {useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
-
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import PanoramaIcon from "@mui/icons-material/Panorama";
 
 const MyDatagrid = () => {
   const [customContextMenu, setCustomContextMenu] = useState(false);
-  // useEffect(() => {
-  //   function handleContextMenu(e) {
-  //     e.preventDefault();
-  //     setCustomContextMenu({
-  //       mouseX: e.clientX - 2,
-  //       mouseY: e.clientY - 4,
-  //     });
-  //   }
 
-  //   const rootElement = document.getElementById("my-component");
-  //   rootElement?.addEventListener("contextmenu", handleContextMenu);
-
-  //   return () => {
-  //     rootElement?.removeEventListener("contextmenu", handleContextMenu);
-  //   };
-  // }, []);
-  // const handleCloseContextMenu = () => {
-  //   setCustomContextMenu(false);
-  //   console.log("text", customContextMenu);
-  // };
 
   const history = useNavigate();
   const columns = [
@@ -67,23 +48,39 @@ const MyDatagrid = () => {
         `${params.row.name || ""} ${params.row.size || ""}`,
     },
   ];
-
+  const [gridRows, setGridRows] = useState([]);
   const state = useSelector((state) => state?.folder?.basket);
 
+  const pics = useSelector((state) => state?.file?.pics);
 
-
-
-
-  const rows =
-  state &&
-  state?.map((item) => ({
+  const stateRows =
+    state &&
+    state?.map((item) => ({
       id: item?.entry?.id,
       Name: item?.entry?.name,
       modified: item?.entry?.modified,
       icon: <FolderIcon sx={{ color: "#1F74DB", fontSize: 24, m: "10px" }} />,
     }));
 
- 
+  // pics dizisini maplemek
+  const picsRows =
+    pics &&
+    pics?.map((pic) => ({
+      id: pic?.entry?.id,
+      Name: pic?.entry?.name,
+      icon: <PanoramaIcon sx={{ color: "#1F74DB", fontSize: 24, m: "10px" }} />,
+    }));
+
+  
+    useEffect(() => {
+      // Update the DataGrid rows when the stateRows and picsRows change
+      if (stateRows && picsRows) {
+        const newRows = [...stateRows, ...picsRows];
+        setGridRows(newRows);
+      }
+    }, [stateRows, picsRows]);
+
+
 
   const data = [
     { icon: FileDownloadIcon, text: "Download" },
@@ -101,10 +98,11 @@ const MyDatagrid = () => {
     <>
       <div className="h-main2" id="my-component" style={{ width: "100%" }}>
         <h3 className="px-5 py-8 text-[14px] font-semibold">Personal Files</h3>
-        {rows && rows !== null && (
+
+        {stateRows && picsRows !== null && (
           <DataGrid
             className="!w-full "
-            rows={rows}
+            rows={gridRows}
             columns={columns}
             initialState={{
               pagination: {
@@ -114,8 +112,8 @@ const MyDatagrid = () => {
             pageSizeOptions={[5, 10]}
             onRowDoubleClick={(params, event) => {
               const item = params.row;
-              const targetPageURL = `/personal-files/${item.id}`; 
-              history(targetPageURL); 
+              const targetPageURL = `/personal-files/${item.id}`;
+              history(targetPageURL);
             }}
             onRowContextMenu={(params, event) => {
               event.preventDefault();

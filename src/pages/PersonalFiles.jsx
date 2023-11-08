@@ -50,38 +50,26 @@ const PersonalFiles = () => {
     },
   ];
 
-  const state = useSelector((state) => state?.folder?.basket);
 
 
 
 
-
-  const rows =
-  state &&
-  state?.map((item) => ({
-      id: item?.entry?.id,
-      Name: item?.entry?.name,
-      modified: item?.entry?.modified,
-      icon: <FolderIcon sx={{ color: "#1F74DB", fontSize: 24, m: "10px" }} />,
-    }));
-
-    const {id} =useParams()
-    r
+  const {id} =useParams()
+  const alldata = useSelector((state) => state?.folder?.basket);
 
  
+  
 
-  const data = [
-    { icon: FileDownloadIcon, text: "Download" },
-    { icon: EditIcon, text: "Edit" },
-    { icon: StarBorderIcon, text: "Favorite" },
-    { icon: DriveFileMoveIcon, text: "Move" },
-    { icon: ContentCopyIcon, text: "Copy" },
-    { icon: DeleteIcon, text: "Delete" },
-    { icon: MenuIcon, text: "Edit Aspects" },
-    { icon: GroupIcon, text: "Permissions" },
-    { icon: KeyIcon, text: "Security Marks" },
-    { icon: GavelIcon, text: "Manage rules" },
-  ];
+  const currentPost =alldata?.find((item)=>item?.entry?.id === id);
+  console.log('test',currentPost)
+
+
+  const rows ={
+    Name: currentPost?.entry?.isFile,
+  }
+
+  
+
   return (
     <>
       <div className="h-main2" id="my-component" style={{ width: "100%" }}>

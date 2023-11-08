@@ -59,6 +59,7 @@ const Home = () => {
           </Link>
           <div className="text-[2rem] font-[100] ml-[0.6rem] cursor-pointer tracking-[-.3px]">
             Alfresco Digital Workspace
+            
           </div>
         </div>
         <div className="flex items-center">
@@ -118,6 +119,7 @@ const Home = () => {
 
           <p className="pl-[0.5rem] pr-[0.8rem] text-[2rem] font-[500]">
             React Developer
+            
           </p>
           <AccountMenu />
         </div>
