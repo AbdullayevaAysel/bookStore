@@ -12,6 +12,7 @@ function Routes() {
       element: <RequireAuth><Layout/></RequireAuth>,
       children: [
         { path: '/personal-files', element: <Home /> },
+        { path: '/personal-files/:id', element: <PersonalFiles /> },
       ]
     },
     {

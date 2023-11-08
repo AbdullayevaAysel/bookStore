@@ -1,21 +1,23 @@
-import { useEffect, useState } from "react"
-import { DataGrid } from "@mui/x-data-grid"
-import IconItem from "../../components/İconİtem"
-import FileDownloadIcon from "@mui/icons-material/FileDownload"
-import EditIcon from "@mui/icons-material/Edit"
-import StarBorderIcon from "@mui/icons-material/StarBorder"
-import DriveFileMoveIcon from "@mui/icons-material/DriveFileMove"
-import ContentCopyIcon from "@mui/icons-material/ContentCopy"
-import DeleteIcon from "@mui/icons-material/Delete"
-import MenuIcon from "@mui/icons-material/Menu"
-import GroupIcon from "@mui/icons-material/Group"
-import KeyIcon from "@mui/icons-material/Key"
-import GavelIcon from "@mui/icons-material/Gavel"
-import FolderIcon from "@mui/icons-material/Folder"
-import { useSelector } from "react-redux"
+import { useState } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import IconItem from "../../components/İconİtem";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import EditIcon from "@mui/icons-material/Edit";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import DriveFileMoveIcon from "@mui/icons-material/DriveFileMove";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import DeleteIcon from "@mui/icons-material/Delete";
+import MenuIcon from "@mui/icons-material/Menu";
+import GroupIcon from "@mui/icons-material/Group";
+import KeyIcon from "@mui/icons-material/Key";
+import GavelIcon from "@mui/icons-material/Gavel";
+import FolderIcon from "@mui/icons-material/Folder";
+import {useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+
 
 const MyDatagrid = () => {
-  const [customContextMenu, setCustomContextMenu] = useState(false)
+  const [customContextMenu, setCustomContextMenu] = useState(false);
   // useEffect(() => {
   //   function handleContextMenu(e) {
   //     e.preventDefault();
@@ -36,6 +38,8 @@ const MyDatagrid = () => {
   //   setCustomContextMenu(false);
   //   console.log("text", customContextMenu);
   // };
+
+  const history = useNavigate();
   const columns = [
     {
       field: "icon",
@@ -60,31 +64,26 @@ const MyDatagrid = () => {
       flex: 1,
 
       valueGetter: (params) =>
-        `${params.row.Name || ""} ${params.row.size || ""}`,
+        `${params.row.name || ""} ${params.row.size || ""}`,
     },
-  ]
+  ];
 
-  const state = useSelector((state) => state?.folder?.basket)
-  const createRow = () => {
+  const state = useSelector((state) => state?.folder?.basket);
 
-    return (
-      state &&
-      state?.map((item) => ({
-        id: item?.entry?.id,
-        size: item?.entry?.size, 
-        Name: item?.entry?.name,
-        modified: item?.entry?.modified,
-        icon: <FolderIcon sx={{ color: "#1F74DB", fontSize: 24, m: "10px" }} />,
-      }))
-    )
-  }
 
-  const [rows, setRows] = useState(createRow())
 
-  useEffect(() => {
-    setRows(rows.map((row) => ({ ...row, createRow })));
-  }, [state])
 
+
+  const rows =
+  state &&
+  state?.map((item) => ({
+      id: item?.entry?.id,
+      Name: item?.entry?.name,
+      modified: item?.entry?.modified,
+      icon: <FolderIcon sx={{ color: "#1F74DB", fontSize: 24, m: "10px" }} />,
+    }));
+
+ 
 
   const data = [
     { icon: FileDownloadIcon, text: "Download" },
@@ -97,7 +96,7 @@ const MyDatagrid = () => {
     { icon: GroupIcon, text: "Permissions" },
     { icon: KeyIcon, text: "Security Marks" },
     { icon: GavelIcon, text: "Manage rules" },
-  ]
+  ];
   return (
     <>
       <div className="h-main2" id="my-component" style={{ width: "100%" }}>
@@ -113,12 +112,17 @@ const MyDatagrid = () => {
               },
             }}
             pageSizeOptions={[5, 10]}
+            onRowDoubleClick={(params, event) => {
+              const item = params.row;
+              const targetPageURL = `/personal-files/${item.id}`; 
+              history(targetPageURL); 
+            }}
             onRowContextMenu={(params, event) => {
-              event.preventDefault()
+              event.preventDefault();
               setCustomContextMenu({
                 mouseX: event.clientX - 2,
                 mouseY: event.clientY - 4,
-              })
+              });
             }}
           />
         )}
@@ -142,7 +146,7 @@ const MyDatagrid = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default MyDatagrid
+export default MyDatagrid;

@@ -10,11 +10,10 @@ const initialState = {
     basket: items
 }
 
-
-
 export const folderSlice = createSlice({
   name: "folder",
   initialState,
+  
   reducers: {
     createFolder: async (state, action) => {
         
@@ -43,7 +42,6 @@ export const folderSlice = createSlice({
       if (response.ok) {
         state.basket.push(data);
         console.log("Request was successful:", data)
-      
         saveDataToLocal("folder", state.basket);
       } else {
         console.error("Request failed:", data)
