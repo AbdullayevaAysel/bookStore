@@ -1,11 +1,7 @@
 import Routes from "./common/navigate"
 
 function App() {
-  return (
-    <>
-      <Routes />
-    </>
-  )
+  return <Routes />
 }
 
 export default App
